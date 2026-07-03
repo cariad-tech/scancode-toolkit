@@ -1,0 +1,8 @@
+
+	{
+		"image": "ghcr.io/astral-sh/uv:python3.13-trixie-slim",
+		"runArgs": ["--platform=linux/amd64 --network=host"],
+		"init": false,
+		"mounts": [{ "source": "/Users/dhxbwm7/lixo/copyright", "target": "/tests", "type": "bind" }],
+		"postCreateCommand": "uv sync"
+	}

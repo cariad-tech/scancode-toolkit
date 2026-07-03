@@ -10,7 +10,7 @@
 
 # Python version can be specified with `$ PYTHON_EXE=python3.x make conf`
 PYTHON_EXE?=python3
-VENV=venv
+VENV=.venv
 ACTIVATE?=. ${VENV}/bin/activate;
 
 

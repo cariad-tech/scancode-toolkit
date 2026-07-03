@@ -22,18 +22,20 @@ venv/bin/scancode-reindex-licenses
 venv/bin/scancode-reindex-package-patterns
 venv/bin/scancode-train-gibberish-model
 
-python_tag=$( python -c "import platform;print(f\"cp{''.join(platform.python_version_tuple()[:2])}\")" )
+# NOTE: scancode-toolkit is a pure Python package, so `uv build` (using the
+# hatchling build backend) always produces a single universal "py3-none-any"
+# wheel. This replaces the previous setuptools-based build which forced a
+# Python-version-specific tag (e.g. cp310) via `--python-tag`.
+uv build --wheel
 
-venv/bin/python setup.py --quiet bdist_wheel --python-tag $python_tag
+rm -rf build .eggs dist/*.egg-info src/scancode_toolkit*.egg-info src/scancode_toolkit_mini*.egg-info
+cp pyproject.toml pyproject-main.toml
+cp pyproject-mini.toml pyproject.toml
 
-rm -rf build .eggs src/scancode_toolkit*.egg-info src/scancode_toolkit_mini*.egg-info
-cp setup.cfg setup-main.cfg
-cp setup-mini.cfg setup.cfg
+uv build --wheel
 
-venv/bin/python setup.py --quiet bdist_wheel --python-tag $python_tag
-
-cp setup-main.cfg setup.cfg
-rm setup-main.cfg
+cp pyproject-main.toml pyproject.toml
+rm pyproject-main.toml
 
 venv/bin/twine check dist/*
 

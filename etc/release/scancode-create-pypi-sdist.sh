@@ -17,16 +17,16 @@ set -e
 #set -x
 
 ./configure --dev
-venv/bin/python setup.py --quiet sdist
+uv build --sdist
 
-rm -rf build .eggs src/scancode_toolkit*.egg-info src/scancode_toolkit_mini*.egg-info
-cp setup.cfg setup-main.cfg
-cp setup-mini.cfg setup.cfg
+rm -rf build .eggs dist/*.egg-info src/scancode_toolkit*.egg-info src/scancode_toolkit_mini*.egg-info
+cp pyproject.toml pyproject-main.toml
+cp pyproject-mini.toml pyproject.toml
 
-venv/bin/python setup.py --quiet sdist
+uv build --sdist
 
-cp setup-main.cfg setup.cfg
-rm setup-main.cfg
+cp pyproject-main.toml pyproject.toml
+rm pyproject-main.toml
 
 venv/bin/twine check dist/*
 
