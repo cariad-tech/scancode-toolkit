@@ -3287,6 +3287,11 @@ GRAMMAR = """
     # Copyright (c) 1995-2018 The PNG Reference Library Authors. (with and without trailing dot)
     COPYRIGHT: {<COPYRIGHT> <NN> <AUTHDOT>} #35011
 
+    # Copyright 2021 The logr Authors. / Copyright 2022 The JSpecify Authors.
+    # attach a trailing "Authors." even when the preceding name was already
+    # absorbed into the COPYRIGHT node (e.g. names tagged NN like "logr", "JSpecify")
+    COPYRIGHT: {<COPYRIGHT> <AUTHDOT>} #35012
+
     ############ All right reserved in the middle ##############################
 
     # http//www.enox.biz/ Copyright (C) All rights Reserved by Enoxbiz
